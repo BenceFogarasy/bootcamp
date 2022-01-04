@@ -1,0 +1,19 @@
+@startuml
+
+title "Deliveroo - Sequence Diagram for successful sign up"
+
+actor Customer
+
+Customer -> App_UI : request to see restaurants
+App_UI -> Customer: prompt for address
+Customer -> App_UI : submit address
+App_UI -> Map_API : checkAddress(address)
+
+database Database
+
+Map_API -> Database : save(address)
+
+Map_API --> App_UI
+
+App_UI --> Customer: new address confirmed
+@enduml
