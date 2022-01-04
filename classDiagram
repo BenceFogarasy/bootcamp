@@ -1,0 +1,148 @@
+@startuml
+
+title Relationships - Class Diagram
+
+
+class Customer {
+  ID
+  Name
+  Address
+  Telephone Number
+  
+  Login()
+  SelectRestaurant()
+  placeOrder()
+  
+}
+
+class Basket{
+  content[]
+  value
+  quantity
+  
+  Clear()
+  AddToBasket()
+  RemoveFromBasket()
+}
+
+class Restaurant{
+  name
+  address
+  isOpen
+  isPreparing
+  
+  sendNotification()
+  AcceptOrder()
+  DeclineOrder()
+}
+
+class Order {
+  price
+  items[]
+  status
+}
+
+class Notification{
+  sender
+  recipient
+  content
+  
+  Send()
+}
+
+class Transaction{
+  ID
+  time
+  restaurantID
+  customerID
+  transactionID
+  
+  placeTransaction()
+  cancelTransaction()
+}
+
+class Menu{
+  items[]
+  prices[]
+  
+  AddToMenu()
+  RemoveFromMenu()
+}
+
+class AppInterface {
+  size
+  colour
+  
+
+  displayMenu()
+  displayRestaurants()
+  displayOrder()
+}
+
+class DriverInterface{
+  deliveryAddress
+  
+  showAvailableJobs()
+  showDeliveryAddress()
+}
+
+class Bank{
+  bankAccountNumber
+  recipientDetails
+  transactionSum
+  Password
+  
+  authenticate()
+  transferMoney()
+}
+
+class Delivery{
+  status
+  
+  updateStatus()
+}
+
+class DeliveryDriver {
+  ID
+  isWorking
+  licenseNumber
+  
+  rejectJob()
+  acceptJob()
+}
+
+Menu "1" --up "1" Restaurant 
+Transaction "1" <|-- "1" Order
+Transaction  --  Bank
+
+Notification -- DeliveryDriver
+Notification -- Restaurant
+Notification -- Customer
+
+AppInterface -- Basket
+Transaction -- Basket
+
+Restaurant -- Delivery
+
+Customer -- AppInterface
+
+DeliveryDriver -- DriverInterface
+AppInterface --> Delivery
+AppInterface -- Notification
+AppInterface -- Order
+
+
+Restaurant -- Order
+Restaurant -- DeliveryDriver
+Restaurant -- Customer
+Restaurant -- Bank
+
+Order "1" --up "1"  Basket
+
+AppInterface -- Menu
+
+Customer -- Transaction
+DriverInterface --|>  AppInterface
+DriverInterface -- Delivery
+
+@enduml
