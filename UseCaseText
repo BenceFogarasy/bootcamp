@@ -1,0 +1,56 @@
+@startuml
+
+title Use Case Diagram 
+
+left to right direction
+
+actor Customer
+actor DeliveryDriver
+actor Chef
+actor Administrator
+
+rectangle Deliveroo{
+  usecase (Create Account)
+  usecase (Browse through menu)
+  usecase (Order food)
+  usecase (View Order)
+  usecase (Confirm Order)
+  usecase (Send notification when order is ready)
+  usecase (Browse through ongoing orders)
+  usecase (Accept job)
+  usecase (Mark order collected)
+  usecase (Upload picture of delivered package)
+  usecase (Add items to menu)
+  usecase (Set prices for items on menu)
+  usecase (View transactions)
+  
+}
+
+Customer -> (Create Account)
+Customer -> (Browse through menu)
+Customer -> (Order food)
+Customer -> (View Order)
+
+
+(View Order) -> Chef
+Chef -> (Confirm Order)
+Chef -> (Send notification when order is ready)
+
+DeliveryDriver -> (Browse through ongoing orders)
+DeliveryDriver -> (Accept job)
+(Send notification when order is ready) -> DeliveryDriver
+DeliveryDriver -> (Mark order collected)
+DeliveryDriver -> (Upload picture of delivered package)
+
+Administrator -> (Add items to menu)
+Administrator -> (Set prices for items on menu)
+Administrator -> (View transactions)
+
+
+
+
+
+
+
+
+@enduml
