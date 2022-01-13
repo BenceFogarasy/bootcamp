@@ -1,7 +1,13 @@
 const { App } = require("./App");
+const BankPayment = require('./BankPayment');
+const PaypalPayment = require('./PaypalPayment');
+
 
 class ScooterStation {
-    scooters = []; location = []; isLocked; cRate;
+    static scooters = [];
+    static stations = [];
+    
+    location = []; isLocked; cRate;
 
     constructor(scooters,isLocked,cRate,location)
     {
@@ -23,12 +29,14 @@ class ScooterStation {
     initiatePayment(jTime){
         let method = App.askForPayment();
         let charge = jTime * this.cRate;
+        let Payment;
+
         if (method == "b")
         {
-            
+            Payment = new BankPayment();
         }else if(method == "p")
         {
-
+            Payment = new PaypalPayment();
         }else{
             throw new Error("Invalid payment method!");
         }

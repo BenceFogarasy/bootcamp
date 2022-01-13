@@ -18,6 +18,7 @@ class Authenticate {
 
     generateToken()
     {
+        //external token generation 
         let token = "297B!)*&^QXACAWEW";
         return token;
     }
