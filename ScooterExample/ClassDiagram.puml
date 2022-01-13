@@ -1,0 +1,116 @@
+@startuml
+
+title Classes - Class Diagram
+
+
+class User {
+    ..Properties..
+  -Int id
+  -String username
+  -String password
+  -String email
+  -String phoneNumber
+  -String location
+  -String idNumber
+  ..Methods..
+  +Boolean RentScooter(ScooterID)
+  +Boolean ParkScooter(ScooterID)
+}
+
+class ScooterStaff{
+    ..Properties..
+    -String staffID
+    ..Methods..
+    +Object[] GetScooters(distance)
+    +Boolean ChargeScooter(ScooterID)
+}
+
+User <|-- ScooterStaff
+
+class Authentication {
+    ..Methods..
+    +Object Login(id,username,password)
+    +Object Register(id,username,password,email,phoneNumber,idNumber)
+    +Boolean Authenticate(userID)
+    +Boolean AuthenticatePayment()
+}
+
+class PaymentHandler {
+    ..Properties..
+    -TransactionID
+    -Time
+    -PaymentAmount
+    -SenderDetails{}
+    -RecipientDetials{}
+..Methods..
+-Boolean initiatePayment(id,name,address,email,phoneNumber)
+}
+
+PaymentHandler -- "Authenticate user details during payment" Authentication
+
+class BankPayment {
+..Properties..
+-String bankAccountNumber
+-String recipient
+..Methods..
++Boolean initiatePayment(...) 
+}
+BankPayment  --|> PaymentHandler
+
+class PaypalPayment {
+..Properties..
+-String paypalEmail
+-String recipientEmail
+..Methods..
++Boolean initiatePayment(...) 
+}
+PaypalPayment  --|> PaymentHandler
+
+class Scooter {
+    ..Properties..
+    -id
+    -speed
+    -location
+    -batteryLevel
+    -isFaulty
+    -isParked
+    -journeyTime
+    -distanceLeft
+    -stationID
+    ..Methods..
+    +Void Unlock()
+    +Void Lock()
+    +Void LimitSpeed()
+    +Void ResetSpeed()
+    +Void Notify()
+    +Void MarkBroken()
+}
+
+class ScooterStation {
+    ..Properties..
+    -id
+    -scooters[]
+    -location
+    -isLocked
+    -nScooters
+
+    ..Methods..
+    +Void CheckInScooter(ScooterID)
+    +Void TakeScooter(ScooterID)
+    +Void LockScooter(ScooterID)
+    +Void UnlockScooter(ScooterID)
+    +Void NotifyCentre(code,message)
+    +Void StartJourney(ScooterID)
+}
+
+Scooter "many" <-- "1" ScooterStation
+
+User "1" --> "1" Scooter: Rents scooter
+
+User "many" --> "1" Authentication: Authenticates user, checks license and verifies over 18
+
+ScooterStaff "1" --> "1" ScooterStation: Interacts with parked scooters
+
+ScooterStaff "1" --> "many" Scooter: Charges and services scooters
+@enduml
+

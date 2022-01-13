@@ -1,0 +1,68 @@
+@startuml
+
+title Use Case Diagram 
+ 
+left to right direction
+
+actor Customer
+actor ScooterStaff
+actor Scooter
+actor Bank
+actor Authentication
+actor Charger
+actor Paypal
+
+rectangle ScooterApp{
+
+  rectangle Auth{
+    usecase (Login)
+    usecase (Register)
+  
+  }
+  
+  rectangle ScooterSystem{
+    usecase (Rent Scooter)
+    usecase (Notify Staff to charge)
+    usecase (Park Scooter)
+    usecase (Get nearest drop off stations)
+  }
+  
+  rectangle Transaction {
+    usecase (Make Payment)
+  }
+
+}
+
+'User interactions'
+Customer -> (Login)
+(Login) -> Authentication
+Customer -> (Register)
+(Register) -> Authentication
+
+Customer -> (Rent Scooter)
+(Rent Scooter) -> Scooter
+
+Customer -> (Park Scooter)
+Customer -> (Make Payment)
+
+Customer -> (Get nearest drop off stations)
+
+
+'ScooterStaff interactions'
+ScooterStaff -> Scooter
+ScooterStaff -> (Park Scooter)
+ScooterStaff -> Charger
+Scooter <-> Charger
+
+
+(Notify Staff to charge) -> ScooterStaff
+
+
+'Transactions'
+Bank -> (Make Payment)
+Paypal -> (Make Payment)
+
+
+
+
+@enduml

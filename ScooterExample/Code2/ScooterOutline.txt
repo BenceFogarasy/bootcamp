@@ -1,0 +1,88 @@
+User (object)
+
+-ID
+-Name
+-Username
+-Password
+-Email
+-Phone Number
+-Location
+
+¬RentScooter(ScooterID)
+	-> calls ScooterManager (Object)
+
+-> calls Authenticate age (object)
+-> calls Register (object)
+-> calls Login (Object)
+
+
+[Limit users to only 18, verification]
+
+
+VehicleStaff [User] (Object)
+
+-StaffID
+
+¬GetScooters(distance)
+¬ChargeScooter(ScooterID)
+
+
+
+PaymentHandler (Object)
+
+-TransactionID
+-Time
+-PaymentAmount
+-SenderDetails{}
+-RecipientDetials{}
+
+¬InitiatePayment()
+¬RefundPayment()
+
+BankPayment [PaymentHandler] (Object)
+
+PaypalPayment [PaymentHandler] (Object)
+
+
+
+Scooter (Object)
+
+-ID
+-Speed
+-Location
+-BatteryLevel
+-IsFaulty
+-IsParked
+-JourneyTime
+-DistanceLeft
+
+¬Unlock()
+¬Lock()
+¬LimitSpeed()
+¬ResetSpeed()
+¬Notify()
+¬MarkBroken()
+
+
+ScooterListener (Object)
+
+¬Loop()  //monitor battery level, location, time spent
+
+
+ScooterStation (Object)
+
+-Scooters[]
+-Location
+-IsLocked
+-NScooters
+
+¬CheckInScooter(Scooter)
+¬TakeScooter(Scooter)
+¬LockScooter(Scooter)
+¬UnlockScooter(Scooter)
+¬NotifyCentre(code,message)
+¬ChargeJourney()
+¬StartJourney(Scooter)
+
+
+-> ChargeJourney calls one of the PaymentHandler (Object)
