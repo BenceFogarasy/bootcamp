@@ -1,5 +1,11 @@
 const express = require('express')
 const router = express.Router()
+const  Menu  = require('../Menu');;
+const  Restaurant  = require('../Restaurant');
+const bodyParser = require('body-parser')
+const {sequelize, DataTypes, Model} = require('../sequelize_index');
+const { check, validationResult } = require('express-validator');
+const MenuItem = require('../MenuItem');
 
 // middleware that is specific to this router
 router.use(function timeLog (req, res, next) {
@@ -9,7 +15,7 @@ router.use(function timeLog (req, res, next) {
 
 
  
-router.get('/restaurant/:id', async (request,response) => {
+router.get('/:id', async (request,response) => {
     console.log(request.params.id.trim());
     if (!Number.isNaN(request.params.id.trim()) && request.params.id.trim().length < 15){
         try{
@@ -25,7 +31,7 @@ router.get('/restaurant/:id', async (request,response) => {
     
 });
 
-router.get('/restaurant/:id/menus', async (request,response) => {
+router.get('/:id/menus', async (request,response) => {
     console.log(request.params.id.trim());
     if (!Number.isNaN(request.params.id.trim()) && request.params.id.trim().length < 15){
         try{
@@ -41,7 +47,7 @@ router.get('/restaurant/:id/menus', async (request,response) => {
     
 });
 
-router.get('/restaurant/:id/menus/menuItems', async (request,response) => {
+router.get('/:id/menus/menuItems', async (request,response) => {
     console.log(request.params.id.trim());
     if (!Number.isNaN(request.params.id.trim()) && request.params.id.trim().length < 15){
         try{

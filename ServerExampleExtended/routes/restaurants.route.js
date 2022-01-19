@@ -1,5 +1,11 @@
 const express = require('express')
 const router = express.Router()
+const  Menu  = require('../Menu');;
+const  Restaurant  = require('../Restaurant');
+const bodyParser = require('body-parser')
+const {sequelize, DataTypes, Model} = require('../sequelize_index');
+const { check, validationResult } = require('express-validator');
+const MenuItem = require('../MenuItem');
 
 // middleware that is specific to this router
 router.use(function timeLog (req, res, next) {
@@ -26,7 +32,7 @@ router.post('/',async (request,response) => {
     let nameIn = request.body.name;
     let url = request.body.image;
     const restaurant = await Restaurant.create({name: nameIn, image: url})
-    res.sendStatus(201);
+    response.sendStatus(201);
 });
 
 module.exports = router
