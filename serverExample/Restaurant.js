@@ -17,7 +17,7 @@ Restaurant.init({
     timestamps: false,
 });
 
-Restaurant.hasMany(Menu, {as: 'menus', foreignKey: 'restaurant_id'})
+Restaurant.hasMany(Menu, {as: 'Menus', foreignKey: 'restaurant_id'})
 Menu.belongsTo(Restaurant, {foreignKey: 'restaurant_id'})
 
 
